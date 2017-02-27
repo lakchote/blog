@@ -20,7 +20,7 @@ class Commentaire
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="commentaire", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="commentaire", cascade={"persist", "remove"})
      */
     private $user;
 

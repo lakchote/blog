@@ -175,9 +175,10 @@ class User implements UserInterface
         return $this->commentaire;
     }
 
-    public function setCommentaire($commentaire)
+    public function setCommentaire(Commentaire $commentaire)
     {
-        $this->commentaire = $commentaire;
+        $this->commentaire->add($commentaire);
+        $commentaire->setUser($this);
     }
 
     public function getImgPath()
