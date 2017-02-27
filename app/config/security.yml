@@ -22,6 +22,8 @@ security:
             guard:
                 authenticators:
                     - app.security.login_form_authenticator
+                    - app.security.login_facebook_authenticator
+                entry_point: app.security.login_form_authenticator
 
             logout:
                 path: /logout

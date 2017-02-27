@@ -13,3 +13,16 @@ services:
     app.security.login_form_authenticator:
         class: AppBundle\Security\LoginFormAuthenticator
         autowire: true
+
+    app.security.login_facebook:
+        class: League\OAuth2\Client\Provider\Facebook
+        arguments:
+            -
+                clientId: 272372656515794
+                clientSecret: afeb75fcb89b2ca310ae61ce209d2b12
+                graphApiVersion: v2.8
+                redirectUri: "http://localhost:8000/login/facebook/check"
+
+    app.security.login_facebook_authenticator:
+        class: AppBundle\Security\LoginFacebookAuthenticator
+        autowire: true

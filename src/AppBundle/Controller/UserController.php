@@ -54,4 +54,21 @@ class UserController extends Controller
     public function logoutAction()
     {
     }
+
+    /**
+     * @Route("/login/facebook", name="login_facebook")
+     */
+    public function loginFacebookAction()
+    {
+        return $this->redirect($this->get('app.security.login_facebook')->getAuthorizationUrl([
+            'scopes' => ['public_profile', 'email']
+        ]));
+    }
+
+    /**
+     * @Route("/login/facebook/check", name="login_facebook_check")
+     */
+    public function loginFacebookCheckAction()
+    {
+    }
 }
