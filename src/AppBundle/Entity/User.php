@@ -39,6 +39,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string")
      * @Assert\Email(message="L'adresse email n'est pas valide", checkMX=true)
+     * @Assert\NotBlank(message="Vous devez indiquer votre adresse mail.")
      */
     private $email;
 
@@ -83,7 +84,7 @@ class User implements UserInterface
     {
         $roles = $this->roles;
         if(!in_array('ROLE_USER', $roles)) {
-            $roles = 'ROLE_USER';
+            $roles[] = 'ROLE_USER';
         }
         return $roles;
     }
@@ -99,7 +100,7 @@ class User implements UserInterface
 
     public function getUsername()
     {
-        return $this->prenom . $this->nom;
+        return $this->prenom . ' ' . $this->nom;
     }
 
     public function eraseCredentials()

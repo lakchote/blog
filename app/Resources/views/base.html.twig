@@ -48,8 +48,13 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#">À propos</a></li>
                     <li><a href="#">Me contacter</a></li>
-                    <li><a href="#">Se connecter</a></li>
-                    <li><a href="#" class="color__yellow">Inscription</a></li>
+                    {% if app.user %}
+                        <li><a href="{{ path('logout') }}">Mon profil</a></li>
+                        <li><a href="{{ path('logout') }}" class="color__yellow">Déconnexion</a></li>
+                    {% else %}
+                        <li><a href="{{ path('login') }}">Se connecter</a></li>
+                        <li><a href="{{ path('register') }}" class="color__yellow">Inscription</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

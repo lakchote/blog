@@ -7,7 +7,12 @@ html
 body
 {
     background-color: #252422;
-    margin-bottom:15px;
+    margin-bottom:30px;
+}
+
+h1, form label
+{
+    color:#fff ;
 }
 
 .footer
@@ -91,9 +96,13 @@ body
     margin-bottom: 30px;
 }
 
+.article__title
+{
+    margin-top:30px;
+}
+
 .article__title h1 a
 {
-    color:#fff;
     margin-bottom: 15px;
 }
 
@@ -102,15 +111,11 @@ body
     color:#ccc5b9;
 }
 
-.pagination_link
+a, a:hover
 {
     color:#fff;
 }
 
-.pagination_link:hover
-{
-    color:#fff;
-}
 
 /** Mobile **/
 @media screen and (max-device-width: 640px)
@@ -139,7 +144,8 @@ body
 }
 
 
-@media screen and (min-device-width: 768px)
+/** Desktop **/
+@media screen and (min-device-width: 992px)
 {
     .article__title h1
     {
