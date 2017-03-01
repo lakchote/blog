@@ -5,6 +5,7 @@ namespace  AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="article")
@@ -32,11 +33,11 @@ class Article
      * @ORM\OneToMany(targetEntity="Commentaire", mappedBy="article", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true)
      */
-    private $commentaire;
+    private $commentaires;
 
     public function __construct()
     {
-        $this->commentaire = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
     }
 
     public function getContenu()
@@ -60,23 +61,42 @@ class Article
         $this->datePublication = $datePublication;
     }
 
-    /**
-     * @return ArrayCollection
-     */
-    public function getCommentaire()
-    {
-        return $this->commentaire;
-    }
-
-
-    public function setCommentaire(Commentaire $commentaire)
-    {
-        $this->commentaire->add($commentaire);
-        $commentaire->setArticle($this);
-    }
-
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Add commentaire
+     *
+     * @param Commentaire $commentaire
+     *
+     * @return Article
+     */
+    public function addCommentaire(Commentaire $commentaire)
+    {
+        $this->commentaires[] = $commentaire;
+
+        return $this;
+    }
+
+    /**
+     * Remove commentaire
+     *
+     * @param Commentaire $commentaire
+     */
+    public function removeCommentaire(Commentaire$commentaire)
+    {
+        $this->commentaires->removeElement($commentaire);
+    }
+
+    /**
+     * Get commentaires
+     *
+     * @return ArrayCollection
+     */
+    public function getCommentaires()
+    {
+        return $this->commentaires;
     }
 }
