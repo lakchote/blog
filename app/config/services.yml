@@ -26,3 +26,17 @@ services:
     app.security.login_facebook_authenticator:
         class: AppBundle\Security\LoginFacebookAuthenticator
         autowire: true
+
+    app.validator.username_exists:
+        class: AppBundle\Validator\Constraints\UsernameExistsValidator
+        autowire: true
+        tags:
+            - { name: validator.constraint_validator }
+
+    app.send_mail:
+        class: AppBundle\Service\SendMail
+        autowire: true
+
+    app.security.reset_password:
+        class: AppBundle\Service\ResetPassword
+        autowire: true

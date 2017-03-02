@@ -2,10 +2,13 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\ForgottenPasswordType;
 use AppBundle\Form\LoginType;
 use AppBundle\Form\RegisterType;
+use AppBundle\Form\ResetPasswordType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends Controller
@@ -70,5 +73,48 @@ class UserController extends Controller
      */
     public function loginFacebookCheckAction()
     {
+    }
+
+    /**
+     * @Route("/forgotten_password", name="forgotten_password")
+     */
+    public function forgottenPasswordAction(Request $request)
+    {
+        $form = $this->createForm(ForgottenPasswordType::class);
+        $form->handleRequest($request);
+        if($form->isValid())
+        {
+            $email = $form['email']->getData();
+            $this->get('app.send_mail')->sendResetPasswordMail($email);
+            $this->addFlash('success', 'Un email vous a été envoyé avec les instructions à suivre.');
+        }
+        return $this->render('user_controller/forgotten_password.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/reset_password", name="reset_password")
+     */
+    public function resetPasswordAction(Request $request)
+    {
+        $form = $this->createForm(ResetPasswordType::class);
+        $form->handleRequest($request);
+        if($form->isValid())
+        {
+            $data = $form->getData();
+            if(!$user = $this->get('app.security.reset_password')->checkIfResetIdMatches($data))
+            {
+                $error = new FormError('ID incorrect.');
+                $form->get('resetId')->addError($error);
+                return $this->render('user_controller/reset_password.html.twig', [
+                    'form' => $form->createView()
+                ]);
+            }
+            return $this->get('security.authentication.guard_handler')->authenticateUserAndHandleSuccess($user, $request, $this->get('app.security.login_form_authenticator'), 'main');
+        }
+        return $this->render('user_controller/reset_password.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }
