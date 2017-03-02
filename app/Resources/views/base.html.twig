@@ -46,7 +46,7 @@
             </form>
             <div class="collapse navbar-collapse" id="menu">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">À propos</a></li>
+                    <li><a href="{{ path('about') }}">À propos</a></li>
                     <li><a href="{{ path('contact') }}">Me contacter</a></li>
                     {% if app.user %}
                         <li><a href="{{ path('logout') }}">Mon profil</a></li>

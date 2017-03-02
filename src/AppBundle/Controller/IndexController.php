@@ -19,6 +19,14 @@ class IndexController extends Controller
     }
 
     /**
+     * @Route("/about", name="about")
+     */
+    public function aboutAction()
+    {
+        return $this->render('index_controller/about.html.twig');
+    }
+
+    /**
      * @Route("/contact", name="contact")
      */
     public function contactAction(Request $request)
