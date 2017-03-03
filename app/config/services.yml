@@ -10,6 +10,12 @@ services:
         tags:
             - { name: doctrine.event_subscriber }
 
+    app.doctrine.user_photo_upload_listener:
+        class: AppBundle\Doctrine\UserPhotoUploadListener
+        arguments: ['@app.file_uploader', '%user_photo_dir%']
+        tags:
+            - { name: doctrine.event_subscriber }
+
     app.security.login_form_authenticator:
         class: AppBundle\Security\LoginFormAuthenticator
         autowire: true
@@ -40,3 +46,7 @@ services:
     app.security.reset_password:
         class: AppBundle\Service\ResetPassword
         autowire: true
+
+    app.file_uploader:
+        class: AppBundle\Service\FileUploader
+        arguments: ['%user_photo_dir%']

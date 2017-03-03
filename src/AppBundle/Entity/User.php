@@ -6,14 +6,15 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Entity\Commentaires;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="user")
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
-    private $imgPath = '/uploads/user';
+    private $imgPath = '/uploads/user/';
 
     /**
      * @ORM\Id
@@ -71,13 +72,13 @@ class User implements UserInterface
     private $photo;
 
     /**
-     * @ORM\OneToMany(targetEntity="Commentaire", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Commentaires", mappedBy="user")
      */
-    private $commentaire;
+    private $commentaires;
 
     public function __construct()
     {
-        $this->commentaire = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
     }
 
     public function getRoles()
@@ -165,22 +166,14 @@ class User implements UserInterface
 
     public function setPhoto($photo)
     {
-        $this->photo = $photo;
+        if($photo !== null) $this->photo = $photo;
     }
 
-    /**
-     * @return ArrayCollection
-     */
-    public function getCommentaire()
+    public function deletePhoto()
     {
-        return $this->commentaire;
+        $this->photo = null;
     }
 
-    public function setCommentaire(Commentaire $commentaire)
-    {
-        $this->commentaire->add($commentaire);
-        $commentaire->setUser($this);
-    }
 
     public function getImgPath()
     {
@@ -200,5 +193,48 @@ class User implements UserInterface
     public function setRoles($roles)
     {
         $this->roles[] = $roles;
+    }
+
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->email,
+            $this->nom,
+            $this->prenom,
+            $this->password,
+            $this->commentaires
+        ));
+    }
+
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->email,
+            $this->nom,
+            $this->prenom,
+            $this->password,
+            $this->commentaires
+            ) = unserialize($serialized);
+    }
+
+    public function addCommentaire(Commentaires $commentaire)
+    {
+        $this->commentaires[] = $commentaire;
+
+        return $this;
+    }
+
+
+    public function removeCommentaire(Commentaires $commentaire)
+    {
+        $this->commentaires->removeElement($commentaire);
+    }
+
+
+    public function getCommentaires()
+    {
+        return $this->commentaires;
     }
 }

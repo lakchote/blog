@@ -8,9 +8,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @Gedmo\Tree(type="nested")
  * @ORM\Entity(repositoryClass="Gedmo\Tree\Entity\Repository\NestedTreeRepository")
- * @ORM\Table(name="commentaire")
+ * @ORM\Table(name="commentaires")
  */
-class Commentaire
+class Commentaires
 {
     /**
      * @ORM\Id
@@ -20,7 +20,7 @@ class Commentaire
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="commentaire", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="commentaires", cascade={"persist", "remove"})
      */
     private $user;
 
@@ -59,20 +59,20 @@ class Commentaire
 
     /**
      * @Gedmo\TreeRoot
-     * @ORM\ManyToOne(targetEntity="Commentaire")
+     * @ORM\ManyToOne(targetEntity="Commentaires")
      * @ORM\JoinColumn(referencedColumnName="id", onDelete="CASCADE")
      */
     private $root;
 
     /**
      * @Gedmo\TreeParent
-     * @ORM\ManyToOne(targetEntity="Commentaire", inversedBy="children")
+     * @ORM\ManyToOne(targetEntity="Commentaires", inversedBy="children")
      * @ORM\JoinColumn(referencedColumnName="id", onDelete="CASCADE")
      */
     private $parent;
 
     /**
-     * @ORM\OneToMany(targetEntity="Commentaire", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="Commentaires", mappedBy="parent")
      * @ORM\OrderBy({"lft" = "ASC"})
      */
     private $children;

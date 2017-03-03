@@ -1,0 +1,39 @@
+.photo-container
+{
+    border:1px solid grey;
+    margin-bottom: 10px;
+}
+
+.photo-container__trash
+{
+    position:absolute;
+    bottom:0;
+    right:0;
+    padding:0 5px;
+    z-index: 1;
+    height:25px;
+    width:25px;
+    background-color: #fff;
+}
+
+.photo-container, .photo-container__userPhoto
+{
+    height:200px;
+    width:200px;
+}
+
+.photo-container__button
+{
+    line-height: 200px;
+    text-align: center;
+    position: relative;
+    color:#fff;
+}
+
+.photo-container__file
+{
+    position:absolute;
+    top:0;
+    opacity: 0;
+    cursor:pointer;
+}

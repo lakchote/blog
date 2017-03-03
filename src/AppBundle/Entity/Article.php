@@ -30,7 +30,7 @@ class Article
     private $datePublication;
 
     /**
-     * @ORM\OneToMany(targetEntity="Commentaire", mappedBy="article", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Commentaires", mappedBy="article", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $commentaires;

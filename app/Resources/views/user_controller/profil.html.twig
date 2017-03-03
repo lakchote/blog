@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/profil.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-xs-12 col-sm-8">
+            <h1>Profil de <span class="color__lightgrey">{{ app.user.username }}</span></h1>
+            {{ form_start(form) }}
+            <div class="photo-container">
+                <div class="photo-container__button">
+                    {% if app.user.photo != '' %}
+                        <img src="{{ (app.user.photo.filename) is defined ? asset(app.user.imgpath ~ app.user.photo.filename) :  asset(app.user.imgpath ~ app.user.photo) }}" alt="Votre photo de profil" class="photo-container__userPhoto">
+                    {% endif %}
+                    {{ form_widget(form.photo, {
+                        'attr' : { class : 'photo-container__file' }
+                    }) }}
+                    {% if app.user.photo == '' %}Ajouter une photo {% endif %}
+                    {% if app.user.photo != '' %}
+                        <a href="{{ path('delete_user_photo') }}"><img src="{{ asset('img/trash.png') }}" class="photo-container__trash" alt="Supprimer la photo"></a>
+                    {% endif %}
+                </div>
+            </div>
+            {{ form_row(form.email) }}
+            {{ form_row(form.plainPassword.first, {
+                'label' : 'Nouveau mot de passe'
+            }) }}
+            {{ form_row(form.plainPassword.second, {
+                'label' : 'Retapez le mot de passe'
+            }) }}
+            <button type="submit" class="btn btn-warning" formnovalidate>Modifier</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $('.photo-container__file').change(function () {
+            $('form').submit();
+        });
+    </script>
+{% endblock %}

@@ -49,7 +49,7 @@
                     <li><a href="{{ path('about') }}">À propos</a></li>
                     <li><a href="{{ path('contact') }}">Me contacter</a></li>
                     {% if app.user %}
-                        <li><a href="{{ path('logout') }}">Mon profil</a></li>
+                        <li><a href="{{ path('profil_user') }}">Mon profil</a></li>
                         <li><a href="{{ path('logout') }}" class="color__yellow">Déconnexion</a></li>
                     {% else %}
                         <li><a href="{{ path('login') }}">Se connecter</a></li>

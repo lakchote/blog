@@ -2,13 +2,17 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\User;
 use AppBundle\Form\ForgottenPasswordType;
 use AppBundle\Form\LoginType;
+use AppBundle\Form\ProfilType;
 use AppBundle\Form\RegisterType;
 use AppBundle\Form\ResetPasswordType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends Controller
@@ -116,5 +120,38 @@ class UserController extends Controller
         return $this->render('user_controller/reset_password.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/profil", name="profil_user")
+     * @Security("is_granted('ROLE_USER')")
+     */
+    public function profilUserAction(Request $request)
+    {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $form = $this->createForm(ProfilType::class, $user);
+        $form->handleRequest($request);
+        if($form->isValid())
+        {
+            $this->getDoctrine()->getManager()->persist($user);
+            $this->getDoctrine()->getManager()->flush();
+        }
+        return $this->render('user_controller/profil.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/delete/image", name="delete_user_photo")
+     * @Security("is_granted('ROLE_USER')")
+     */
+    public function deleteUserPhotoAction()
+    {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $user->deletePhoto();
+        $em->persist($user);
+        $em->flush();
+        return new RedirectResponse($this->generateUrl('profil_user'));
     }
 }
