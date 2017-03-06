@@ -49,6 +49,16 @@ h1, h2, form label
     color:#f0ad4e !important;
 }
 
+.margin-top
+{
+    margin-top: 20px;
+}
+
+.margin-top a
+{
+    text-decoration: none;
+}
+
 .header__image
 {
     background:url('../img/books.jpeg') center;

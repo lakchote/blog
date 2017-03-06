@@ -39,7 +39,8 @@
                     <input type="text" class="form-control" placeholder="Rechercher...">
                     <div class="input-group-btn">
                         <button type="submit" class="btn btn-default" style="height:34px;">
-                            <i class="fa fa-search"></i>
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                            <span class="sr-only">Rechercher</span>
                         </button>
                     </div>
                 </div>
@@ -69,6 +70,9 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12 footer">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <p class="text-center" style="opacity:0; cursor:pointer;"><a href="{{ path('admin_home') }}">Administration</a></p>
+                {% endif %}
                 <p class="text-center color__grey">Copyright (c) 2017 - Jean Forteroche - Tous droits réservés </p>
                 <div class="visible-xs col-xs-12">
                     <a href="#nav"><i class="fa fa-arrow-up fa-2x img-responsive color__yellow" id="back-to-top" aria-hidden="true"></i></a>

@@ -4,10 +4,12 @@ namespace  AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ArticleRepository")
  * @ORM\Table(name="article")
  */
 class Article
@@ -20,7 +22,15 @@ class Article
     private $id;
 
     /**
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank()
+     * @Assert\Length(max="100", maxMessage="Le titre de l'article est trop grand")
+     */
+    private $titre;
+
+    /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank()
      */
     private $contenu;
 
@@ -98,5 +108,22 @@ class Article
     public function getCommentaires()
     {
         return $this->commentaires;
+    }
+
+    public function getTitre()
+    {
+        return $this->titre;
+    }
+
+    public function setTitre($titre)
+    {
+        $this->titre = $titre;
+    }
+
+    public function getExcerpt()
+    {
+        $contenu = strip_tags($this->getContenu());
+        $excerpt = substr($contenu, 0, 300) . '[...]';
+        return $excerpt;
     }
 }

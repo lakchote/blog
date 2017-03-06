@@ -1,0 +1,21 @@
+.admin-options
+{
+    background-color: #222;
+    width:auto;
+    border:1px solid grey;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    padding:10px 10px 5px 10px;
+    margin-top:30px;
+}
+
+.admin-options__arrow
+{
+    color:#f0ad4e;
+}
+
+.admin-options__option a
+{
+    color:#ccc5b9;
+    text-decoration: none;
+}

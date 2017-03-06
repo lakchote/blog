@@ -2,7 +2,6 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\User;
 use AppBundle\Form\ForgottenPasswordType;
 use AppBundle\Form\LoginType;
 use AppBundle\Form\ProfilType;

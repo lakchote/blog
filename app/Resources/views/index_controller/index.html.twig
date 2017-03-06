@@ -3,78 +3,28 @@
 {% block content %}
     <div class="row">
         <div class="col-xs-12 col-sm-8">
-            <div class="col-xs-12">
-                <div class="article__title">
-                    <h1><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit</a></h1>
-                    <p class="color__grey">Posté le 24 Février 2017&nbsp;<a href="#" class="color__yellow article_comments--link">XX
-                            commentaires</a></p>
-                    <div class="article__excerpt">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam accumsan risus nec sagittis
-                            accumsan.
-                            Donec vel erat bibendum, fermentum nibh non, sagittis mauris. Nullam vehicula non dolor sit
-                            amet
-                            rhoncus. Cras varius sed ligula nec commodo. In hac habitasse platea dictumst. Nam in
-                            lacinia
-                            ante.
-                            Fusce et lorem eu elit gravida lacinia eget non metus. Morbi ultrices quis magna eget
-                            eleifend[...]</p>
-                    </div>
-                    <div class="col-xs-6 padding-none article__link">
-                        <a href="#" class="btn btn-warning">Lire la suite</a>
+            {% for article in articles %}
+                <div class="col-xs-12">
+                    <div class="article__title">
+                        <h1><a href="#">{{ article.titre }}</a></h1>
+                        <p class="color__grey">Posté le {{ article.datePublication|date('d-m-Y') }}&nbsp;<a href="#" class="color__yellow article_comments--link">{{ (article.commentaires|length > 0) ? article.commentaires|length ~ ' commentaires' : article.commentaires|length ~ ' commentaire'  }}
+                            </a></p>
+                        <div class="article__excerpt">
+                            <p>{{ article.excerpt }}</p>
+                        </div>
+                        <div class="col-xs-6 padding-none article__link">
+                            <a href="{{ path('show_article', {'titre' : article.titre }) }}" class="btn btn-warning">Lire la suite</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-xs-12">
-                <div class="article__title">
-                    <h1><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit</a></h1>
-                    <p class="color__grey">Posté le 24 Février 2017&nbsp;<a href="#" class="color__yellow article_comments--link">XX
-                            commentaires</a></p>
-                    <div class="article__excerpt">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam accumsan risus nec sagittis
-                            accumsan.
-                            Donec vel erat bibendum, fermentum nibh non, sagittis mauris. Nullam vehicula non dolor sit
-                            amet
-                            rhoncus. Cras varius sed ligula nec commodo. In hac habitasse platea dictumst. Nam in
-                            lacinia
-                            ante.
-                            Fusce et lorem eu elit gravida lacinia eget non metus. Morbi ultrices quis magna eget
-                            eleifend[...]</p>
-                    </div>
-                    <div class="col-xs-6 padding-none article__link">
-                        <a href="#" class="btn btn-warning">Lire la suite</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12">
-                <div class="article__title">
-                    <h1><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit</a></h1>
-                    <p class="color__grey">Posté le 24 Février 2017&nbsp;<a href="#" class="color__yellow article_comments--link">XX
-                            commentaires</a></p>
-                    <div class="article__excerpt">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam accumsan risus nec sagittis
-                            accumsan.
-                            Donec vel erat bibendum, fermentum nibh non, sagittis mauris. Nullam vehicula non dolor sit
-                            amet
-                            rhoncus. Cras varius sed ligula nec commodo. In hac habitasse platea dictumst. Nam in
-                            lacinia
-                            ante.
-                            Fusce et lorem eu elit gravida lacinia eget non metus. Morbi ultrices quis magna eget
-                            eleifend[...]</p>
-                    </div>
-                    <div class="col-xs-6 padding-none article__link">
-                        <a href="#" class="btn btn-warning">Lire la suite</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12">
-                <div class="visible-xs text-center">
-                    <a href="#" class="pagination_link"><span aria-hidden="true">&larr;</span> Précédent</a>&nbsp;
-                    <a href="#" class="pagination_link">Suivant <span aria-hidden="true">&rarr;</span></a>
-                </div>
-                <div class="hidden-xs">
-                    <a href="#" class="pagination_link"><span aria-hidden="true">&larr;</span> Précédent</a>&nbsp;
-                    <a href="#" class="pagination_link">Suivant <span aria-hidden="true">&rarr;</span></a>
-                </div>
+            {% endfor %}
+            <div class="margin-top">
+                {% if data.currentPage <= data.nbPages and data.currentPage != 0 %}
+                    <a href="{{ path('homepage', {'page' : (data.currentPage)-1  }) }}" class="color__yellow" style="margin-right:20px;"><i class="fa fa-arrow-left" aria-hidden="true"></i> Page précédente</a>
+                {% endif %}
+                {% if (data.currentPage)+1 != data.nbPages %}
+                    <a href="{{ path('homepage', {'page' : (data.currentPage)+1 }) }}" class="color__yellow"><i class="fa fa-arrow-right" aria-hidden="true"></i> Page suivante</a>
+                {% endif %}
             </div>
         </div>
         <div class="col-xs-12 col-sm-4 author-info">

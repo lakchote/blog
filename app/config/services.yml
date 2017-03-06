@@ -50,3 +50,7 @@ services:
     app.file_uploader:
         class: AppBundle\Service\FileUploader
         arguments: ['%user_photo_dir%']
+
+    app.show_articles:
+        class: AppBundle\Service\ShowArticles
+        arguments: ['@doctrine.orm.entity_manager']

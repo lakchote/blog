@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-xs-12 col-sm-10">
+            <h1>Créer un nouvel article</h1>
+            {{ form_start(form) }}
+                {{ form_row(form.titre) }}
+                {{ form_row(form.contenu) }}
+            <button type="submit" class="btn btn-warning" formnovalidate><i class="fa fa-check" aria-hidden="true"></i> Créer l'article</button>
+            {{ form_end(form) }}
+            <div class="margin-top">
+                <a href="{{ path('admin_home') }}"><span aria-hidden="true">&larr;</span> Retourner à la page d'administration</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="//cloud.tinymce.com/stable/tinymce.min.js?apiKey=u8jylqy5hqjxcsiki28q9tckb3jt9agt3fliovciryqbv6du"></script>
+    <script type="text/javascript">tinymce.init({ selector:'textarea', menubar: false, language_url: '/js/tinymce/langs/fr_FR.js', plugins: 'textcolor, anchor, image', toolbar1: 'undo | formatselect fontselect | bold italic | anchor | image | forecolor backcolor', toolbar2: 'alignleft aligncenter alignright' });</script>
+{% endblock %}

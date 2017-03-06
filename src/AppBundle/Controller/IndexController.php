@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Article;
 use AppBundle\Form\ContactType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -11,11 +12,16 @@ class IndexController extends Controller
 {
 
     /**
-     * @Route("/", name="homepage")
+     * @Route("/{page}", name="homepage", requirements={"page" : "\d+"})
      */
-    public function indexAction()
+    public function indexAction($page = 0)
     {
-        return $this->render('index_controller/index.html.twig');
+        $articles = $this->get('app.show_articles')->getArticles($page);
+        $paginationData = $this->get('app.show_articles')->handlePagination($page);
+        return $this->render('index_controller/index.html.twig', [
+            'articles' => $articles,
+            'data' => $paginationData
+        ]);
     }
 
     /**
@@ -42,5 +48,13 @@ class IndexController extends Controller
         return $this->render('index_controller/contact.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/show_article/{titre}", name="show_article")
+     */
+    public function showArticleAction(Article $titre)
+    {
+
     }
 }

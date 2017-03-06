@@ -42,6 +42,7 @@ class UserPhotoUploadListener implements EventSubscriber
     public function postLoad(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
+        if(!$entity instanceof User) return;
         $filename = $entity->getPhoto();
         if($filename != '') $entity->setPhoto(new File($this->directoryPath . '/' . $filename));
     }
