@@ -43,7 +43,7 @@ class AdminController extends Controller
         {
             $data = $form->getData();
             $this->get('app.manager.articles_manager')->persistArticle($data);
-            $this->addFlash('success', 'L\'article a été créé.');
+            $this->addFlash('newArticle', 'L\'article a été créé.');
             return new RedirectResponse($this->generateUrl('admin_home'));
         }
         return $this->render('admin_controller/create_article.html.twig', [

@@ -34,13 +34,13 @@
                     <span class="color__white">Forteroche</span>
                 </a>
             </div>
-            <form class="navbar-form navbar-left" role="search">
+            <form class="navbar-form navbar-left" role="search" action="{{ path('search') }}" method="post">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Rechercher...">
+                    <input type="text" class="form-control" placeholder="Rechercher un article..." name="user_input">
                     <div class="input-group-btn">
                         <button type="submit" class="btn btn-default" style="height:34px;">
                             <i class="fa fa-search" aria-hidden="true"></i>
-                            <span class="sr-only">Rechercher</span>
+                            <span class="sr-only">Rechercher un article...</span>
                         </button>
                     </div>
                 </div>

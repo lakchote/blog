@@ -40,4 +40,18 @@ class ShowArticles
     {
         return ceil(count($this->em->getRepository('AppBundle:Article')->findAll())/$this->maxResults);
     }
+
+    public function getSearchResults($data)
+    {
+        $searchResults = [];
+        $articles = $this->em->getRepository('AppBundle:Article')->findAll();
+        foreach($articles as $article)
+        {
+            if(stripos($article->getTitre(), $data) !== false)
+            {
+                $searchResults[] = $article;
+            }
+        }
+        return $searchResults;
+    }
 }

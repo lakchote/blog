@@ -21,12 +21,16 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 class LoginFacebookAuthenticator extends AbstractGuardAuthenticator
 {
     private $em;
     private $router;
     private $facebookProvider;
+
+    use TargetPathTrait;
 
     public function __construct(Facebook $facebookProvider, EntityManager $em, RouterInterface $router)
     {
@@ -83,6 +87,10 @@ class LoginFacebookAuthenticator extends AbstractGuardAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
+        if($request->getSession() instanceof SessionInterface) {
+            $targetPath = $this->getTargetPath($request->getSession(), $providerKey);
+            return new RedirectResponse($targetPath);
+        }
         return new RedirectResponse($this->router->generate('homepage'));
     }
 

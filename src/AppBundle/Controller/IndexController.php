@@ -6,6 +6,7 @@ use AppBundle\Entity\Article;
 use AppBundle\Entity\Commentaires;
 use AppBundle\Form\ContactType;
 use AppBundle\Form\NewCommentType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -115,5 +116,30 @@ class IndexController extends Controller
         $this->get('app.manager.comments_manager')->reportComment($commentaire);
         $this->addFlash('success', 'Le commentaire a été signalé.');
         return new RedirectResponse($this->generateUrl('show_article', ['slug' => $article->getSlug()]));
+    }
+
+    /**
+     * @Route("/search", name="search")
+
+     */
+    public function searchAction(Request $request)
+    {
+        $data = $request->get('user_input');
+        $searchResults = $this->get('app.show_articles')->getSearchResults($data);
+        if(!$data)
+        {
+            $this->addFlash('warning', 'Vous devez spécifier un terme à rechercher.');
+            return new RedirectResponse($this->generateUrl('homepage'));
+        }
+        if(!$searchResults)
+        {
+            $this->addFlash('warning', 'Aucun article n\'a été trouvé.');
+            return new RedirectResponse($this->generateUrl('homepage'));
+        }
+        $nbArticles = count($searchResults);
+        return $this->render('index_controller/search_results.html.twig', [
+            'articles' => $searchResults,
+            'nbArticles' => $nbArticles
+        ]);
     }
 }
