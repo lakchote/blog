@@ -13,7 +13,7 @@ use Doctrine\ORM\EntityRepository;
 
 class ArticleRepository extends EntityRepository
 {
-    public function showArticles($offset = 0, $maxResults = 5 )
+    public function showArticles($offset, $maxResults)
     {
         return $this
             ->createQueryBuilder('a')

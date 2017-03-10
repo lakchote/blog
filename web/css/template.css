@@ -8,11 +8,17 @@ body
 {
     background-color: #252422;
     margin-bottom:30px;
+    color:#fff;
 }
 
 h1, h2, form label
 {
     color:#fff;
+}
+
+a:hover
+{
+    text-decoration: none;
 }
 
 .footer
@@ -42,6 +48,11 @@ h1, h2, form label
 .color__white
 {
     color:#fff;
+}
+
+.color__lightyellow
+{
+    color:#dff0d8;
 }
 
 .color__yellow
@@ -126,10 +137,52 @@ a, a:hover
     color:#fff;
 }
 
+.buttons-margin
+{
+    margin-bottom: 10px;
+}
+
+.buttons-margin__comments
+{
+    margin-bottom: 15px;
+}
+
+.margin-top__comments
+{
+    margin-top:40px;
+}
+
+.comments__photo
+{
+    height:40px;
+    width:40px;
+    margin-right:10px;
+}
+
+.comments > .comments
+{
+    margin-left:5%;
+    margin-top:10px;
+}
 
 /** Mobile **/
 @media screen and (max-device-width: 640px)
 {
+    .user-actions
+    {
+        font-size: 0.8em;
+    }
+
+    .comments > .comments
+    {
+        margin-left: 15%;
+    }
+
+    .comments > .comments
+    {
+        margin-top: 25px;
+    }
+
     .header__image
     {
         display:none;
@@ -157,11 +210,6 @@ a, a:hover
 /** Desktop **/
 @media screen and (min-device-width: 992px)
 {
-    .article__title h1
-    {
-        font-size: 1.5em;
-    }
-
     .article__excerpt
     {
         width:70%;

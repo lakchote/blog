@@ -10,10 +10,11 @@
             {% endfor %}
             <h1>Modifier les articles</h1>
             {% for article in articles %}
-                <h2 class="color__yellow">{{ article.titre }} </h2>
+                <h2 class="color__yellow"><a href="{{ path('show_article', {'slug' : article.slug}) }}" class="color__yellow">{{ article.titre }}</a></h2>
                 <h3 class="color__grey">Date publication : {{ article.datePublication|date('d-m-Y') }}</h3>
                 <div class="article__link">
                     <a href="{{ path('admin_modify_article', {'id' : article.id }) }}" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier l'article </a>
+                    <div class="visible-xs buttons-margin"></div>
                     <a href="{{ path('admin_delete_article', {'id' : article.id }) }}" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i> Supprimer l'article </a>
                 </div>
             {% endfor %}
@@ -21,7 +22,7 @@
                     {% if data.currentPage <= data.nbPages and data.currentPage != 0 %}
                         <a href="{{ path('admin_show_articles', {'page' : (data.currentPage)-1  }) }}" class="color__yellow" style="margin-right:20px;"><i class="fa fa-arrow-left" aria-hidden="true"></i> Page précédente</a>
                     {% endif %}
-                    {% if (data.currentPage)+1 != data.nbPages %}
+                    {% if (data.currentPage)+1 != data.nbPages and data.nbPages != 0 %}
                         <a href="{{ path('admin_show_articles', {'page' : (data.currentPage)+1 }) }}" class="color__yellow"><i class="fa fa-arrow-right" aria-hidden="true"></i> Page suivante</a>
                     {% endif %}
                 </div>

@@ -22,7 +22,7 @@ class Article
     private $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", unique=true)
      * @Assert\NotBlank()
      * @Assert\Length(max="100", maxMessage="Le titre de l'article est trop grand")
      */
@@ -45,9 +45,16 @@ class Article
      */
     private $commentaires;
 
+    /**
+     * @Gedmo\Slug(fields={"titre"})
+     * @ORM\Column(type="string")
+     */
+    private $slug;
+
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
+        $this->datePublication = new \DateTime();
     }
 
     public function getContenu()
@@ -76,26 +83,14 @@ class Article
         return $this->id;
     }
 
-    /**
-     * Add commentaire
-     *
-     * @param Commentaire $commentaire
-     *
-     * @return Article
-     */
-    public function addCommentaire(Commentaire $commentaire)
+    public function addCommentaire($commentaire)
     {
         $this->commentaires[] = $commentaire;
 
         return $this;
     }
 
-    /**
-     * Remove commentaire
-     *
-     * @param Commentaire $commentaire
-     */
-    public function removeCommentaire(Commentaire$commentaire)
+    public function removeCommentaire($commentaire)
     {
         $this->commentaires->removeElement($commentaire);
     }
@@ -118,6 +113,11 @@ class Article
     public function setTitre($titre)
     {
         $this->titre = $titre;
+    }
+
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
     public function getExcerpt()

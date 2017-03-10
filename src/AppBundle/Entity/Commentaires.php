@@ -4,10 +4,11 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @Gedmo\Tree(type="nested")
- * @ORM\Entity(repositoryClass="Gedmo\Tree\Entity\Repository\NestedTreeRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\CommentairesRepository")
  * @ORM\Table(name="commentaires")
  */
 class Commentaires
@@ -20,17 +21,19 @@ class Commentaires
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="commentaires", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="commentaires", cascade={"persist"})
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Article", inversedBy="commentaires")
+     * @ORM\ManyToOne(targetEntity="Article", inversedBy="commentaires", cascade={"persist"})
      */
     private $article;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank()
+     * @Assert\Length(min="10")
      */
     private $contenu;
 
@@ -38,6 +41,24 @@ class Commentaires
      * @ORM\Column(type="boolean")
      */
     private $isFlagged = false;
+
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $countIsFlagged = 0;
+
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $status = 'NOT_READ';
+
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $dateOfPost;
 
     /**
      * @Gedmo\TreeLeft
@@ -77,11 +98,15 @@ class Commentaires
      */
     private $children;
 
+    public function __construct()
+    {
+        $this->dateOfPost = new \DateTime();
+    }
+
     public function getUser()
     {
         return $this->user;
     }
-
 
     public function setUser($user)
     {
@@ -115,7 +140,6 @@ class Commentaires
         return $this->isFlagged;
     }
 
-
     public function setIsFlagged($isFlagged)
     {
         $this->isFlagged = $isFlagged;
@@ -136,8 +160,43 @@ class Commentaires
         return $this->parent;
     }
 
-    public function setParent(Commentaire $parent = null)
+    public function setParent(Commentaires $parent = null)
     {
         $this->parent = $parent;
+    }
+
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    public function getLvl()
+    {
+        return $this->lvl;
+    }
+
+    public function getCountIsFlagged()
+    {
+        return $this->countIsFlagged;
+    }
+
+    public function setCountIsFlagged()
+    {
+        $this->countIsFlagged += 1;
+    }
+
+    public function resetCountIsFlagged()
+    {
+        $this->countIsFlagged = 0;
+    }
+
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    public function setStatus($status)
+    {
+        $this->status = $status;
     }
 }

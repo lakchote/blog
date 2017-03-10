@@ -54,3 +54,15 @@ services:
     app.show_articles:
         class: AppBundle\Service\ShowArticles
         arguments: ['@doctrine.orm.entity_manager']
+
+    app.show_comments:
+        class: AppBundle\Service\ShowComments
+        arguments: ['@doctrine.orm.entity_manager']
+
+    app.manager.comments_manager:
+        class: AppBundle\Manager\CommentsManager
+        autowire: true
+
+    app.manager.articles_manager:
+        class: AppBundle\Manager\ArticlesManager
+        autowire: true

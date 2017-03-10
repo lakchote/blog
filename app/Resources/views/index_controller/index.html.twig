@@ -6,14 +6,14 @@
             {% for article in articles %}
                 <div class="col-xs-12">
                     <div class="article__title">
-                        <h1><a href="#">{{ article.titre }}</a></h1>
-                        <p class="color__grey">Posté le {{ article.datePublication|date('d-m-Y') }}&nbsp;<a href="#" class="color__yellow article_comments--link">{{ (article.commentaires|length > 0) ? article.commentaires|length ~ ' commentaires' : article.commentaires|length ~ ' commentaire'  }}
-                            </a></p>
+                        <h1><a href="{{ path('show_article', {'slug' : article.slug }) }}">{{ article.titre }}</a></h1>
+                        <p class="color__grey">Posté le {{ article.datePublication|date('d-m-Y') }}&nbsp;<a href="{{ path('show_article', {'slug' : article.slug }) }}"><span class="color__yellow article_comments--link">{{ (article.commentaires|length > 1) ? article.commentaires|length ~ ' commentaires' : article.commentaires|length ~ ' commentaire'  }}
+                                </span></a></p>
                         <div class="article__excerpt">
                             <p>{{ article.excerpt }}</p>
                         </div>
                         <div class="col-xs-6 padding-none article__link">
-                            <a href="{{ path('show_article', {'titre' : article.titre }) }}" class="btn btn-warning">Lire la suite</a>
+                            <a href="{{ path('show_article', {'slug' : article.slug }) }}" class="btn btn-warning">Lire la suite</a>
                         </div>
                     </div>
                 </div>
@@ -22,7 +22,7 @@
                 {% if data.currentPage <= data.nbPages and data.currentPage != 0 %}
                     <a href="{{ path('homepage', {'page' : (data.currentPage)-1  }) }}" class="color__yellow" style="margin-right:20px;"><i class="fa fa-arrow-left" aria-hidden="true"></i> Page précédente</a>
                 {% endif %}
-                {% if (data.currentPage)+1 != data.nbPages %}
+                {% if (data.currentPage)+1 != data.nbPages and data.nbPages != 0 %}
                     <a href="{{ path('homepage', {'page' : (data.currentPage)+1 }) }}" class="color__yellow"><i class="fa fa-arrow-right" aria-hidden="true"></i> Page suivante</a>
                 {% endif %}
             </div>

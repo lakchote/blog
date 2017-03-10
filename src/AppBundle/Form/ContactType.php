@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ContactType extends AbstractType
@@ -34,7 +35,8 @@ class ContactType extends AbstractType
             ])
             ->add('message', TextareaType::class, [
                 'label' => 'Votre message',
-                'constraints' => array(new NotBlank())
+                'constraints' => array(new NotBlank(), new Length(['min' => '100'])),
+                'attr' => ['style' => 'height:200px;']
             ]);
     }
 }

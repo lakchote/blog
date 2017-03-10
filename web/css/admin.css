@@ -5,8 +5,13 @@
     border:1px solid grey;
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
-    padding:10px 10px 5px 10px;
+    padding:5px 10px 5px 10px;
     margin-top:30px;
+}
+
+.admin-options h2
+{
+    margin-top: 1%;
 }
 
 .admin-options__arrow
@@ -17,5 +22,36 @@
 .admin-options__option a
 {
     color:#ccc5b9;
-    text-decoration: none;
 }
+
+.admin-options__option a:hover
+{
+    color:#fff;
+}
+
+.admin-options__comments, .admin-options__comments:hover
+{
+    color:#000;
+}
+
+.admin-options__comments:hover
+{
+    font-weight: bold;
+}
+
+.comments-info
+{
+    margin-top: 20px;
+    background-color: #222;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border:1px solid grey;
+    color:#fff;
+    padding:2px 5px 15px 15px;
+}
+
+.comments-info h2
+{
+    font-size: 1.2em;
+}
+

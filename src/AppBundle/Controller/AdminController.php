@@ -3,7 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Article;
-use AppBundle\Form\AdminCreateArticleType;
+use AppBundle\Entity\Commentaires;
+use AppBundle\Form\AdminArticleType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -18,8 +19,16 @@ class AdminController extends Controller
     /**
      * @Route("/admin", name="admin_home")
      */
-    public function loginAdminAction()
+    public function homeAdminAction()
     {
+        if($resultFlaggedComments = $this->get('app.show_comments')->countFlaggedComments())
+        {
+             $this->addFlash('warning', $resultFlaggedComments);
+        }
+        if($resultNewComments = $this->get('app.show_comments')->countUnreadComments())
+        {
+            $this->addFlash('success', $resultNewComments);
+        }
         return $this->render('admin_controller/home.html.twig');
     }
 
@@ -28,15 +37,12 @@ class AdminController extends Controller
      */
     public function createArticleAction(Request $request)
     {
-        $form = $this->createForm(AdminCreateArticleType::class);
+        $form = $this->createForm(AdminArticleType::class);
         $form->handleRequest($request);
         if($form->isValid())
         {
             $data = $form->getData();
-            $data->setDatePublication(new \DateTime());
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($data);
-            $em->flush();
+            $this->get('app.manager.articles_manager')->persistArticle($data);
             $this->addFlash('success', 'L\'article a été créé.');
             return new RedirectResponse($this->generateUrl('admin_home'));
         }
@@ -63,13 +69,11 @@ class AdminController extends Controller
      */
     public function modifyArticleAction(Article $article, Request $request)
     {
-        $form = $this->createForm(AdminCreateArticleType::class, $article);
+        $form = $this->createForm(AdminArticleType::class, $article);
         $form->handleRequest($request);
         if($form->isValid())
         {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($article);
-            $em->flush();
+            $this->get('app.manager.articles_manager')->persistArticle($article);
             $this->addFlash('success', 'Vos modifications ont bien été enregistrées.');
         }
         return $this->render('admin_controller/modify_article.html.twig', [
@@ -82,10 +86,54 @@ class AdminController extends Controller
      */
     public function deleteArticleAction(Article $article)
     {
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($article);
-        $em->flush();
+        $this->get('app.manager.articles_manager')->removeArticle($article);
         $this->addFlash('success', 'L\'article a été supprimé.');
         return new RedirectResponse($this->generateUrl('admin_show_articles'));
+    }
+
+    /**
+     * @Route("/admin/delete_comment/{id}", name="admin_delete_comment")
+     */
+    public function deleteCommentAction(Commentaires $commentaire, Request $request)
+    {
+        $this->get('app.manager.comments_manager')->deleteComment($commentaire);
+        $this->addFlash('success', 'Le commentaire a été supprimé.');
+        return new RedirectResponse($request->headers->get('referer'));
+    }
+
+    /**
+     * @Route("/admin/reset_comment/{id}", name="admin_reset_comment_status")
+     */
+    public function resetCommentStatusAction(Commentaires $commentaire)
+    {
+        $this->get('app.manager.comments_manager')->resetCommentFlaggedStatus($commentaire);
+        $this->addFlash('success', 'Le signalement a été supprimé.');
+        return new RedirectResponse($this->generateUrl('admin_show_flagged_comments'));
+    }
+
+    /**
+     * @Route("/admin/show/flagged/comments/{page}", name="admin_show_flagged_comments")
+     */
+    public function showFlaggedCommentsAction($page = 0)
+    {
+        $paginationData = $this->get('app.show_comments')->handlePagination($page, 'flagged');
+        $commentaires = $this->get('app.show_comments')->getFlaggedComments($page);
+        return $this->render('admin_controller/show_flagged_comments.html.twig', [
+            'commentaires' => $commentaires,
+            'data' => $paginationData
+        ]);
+    }
+
+    /**
+     * @Route("/admin/show/comments/{page}", name="admin_show_comments")
+     */
+    public function showCommentsAction($page = 0)
+    {
+        $paginationData = $this->get('app.show_comments')->handlePagination($page);
+        $commentaires = $this->get('app.show_comments')->getComments($page);
+        return $this->render('admin_controller/show_comments.html.twig', [
+            'commentaires' => $commentaires,
+            'data' => $paginationData
+        ]);
     }
 }

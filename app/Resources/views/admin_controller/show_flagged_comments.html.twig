@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
+{% endblock %}
+
+{%  block content %}
+    <div class="row">
+        <div class="col-xs-12 col-sm-10">
+            {% for msg in app.session.flashBag.get('success') %}
+                <div class="alert alert-warning">
+                    {{ msg }}
+                </div>
+            {% endfor %}
+            <h1>Commentaires signalés</h1>
+            {% for commentaire in commentaires %}
+                <div class="comments-info">
+                    <h2>Auteur : <span class="color__yellow">{{ commentaire.user.username }}</span></h2>
+                    <h2>Contenu : <span class="color__lightgrey">{{ commentaire.contenu }}</span></h2>
+                    <h2>Nombre signalement(s) : <span class="color__lightyellow">{{ commentaire.countIsFlagged }}</span></h2>
+                    <div class="margin-top"></div>
+                    <a href="{{ path('admin_reset_comment_status', {'id' : commentaire.id}) }}" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i>Enlever le signalement</a>
+                    <div class="visible-xs buttons-margin"></div>
+                    <a href="{{ path('admin_delete_comment', {'id' : commentaire.id}) }}" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i> Supprimer le commentaire</a>
+                </div>
+            {% endfor %}
+            <div class="margin-top">
+                {% if data.currentPage <= data.nbPages and data.currentPage != 0 %}
+                    <a href="{{ path('admin_show_flagged_comments', {'page' : (data.currentPage)-1  }) }}" class="color__yellow" style="margin-right:20px;"><i class="fa fa-arrow-left" aria-hidden="true"></i> Page précédente</a>
+                {% endif %}
+                {% if (data.currentPage)+1 != data.nbPages and data.nbPages != 0 %}
+                    <a href="{{ path('admin_show_flagged_comments', {'page' : (data.currentPage)+1 }) }}" class="color__yellow"><i class="fa fa-arrow-right" aria-hidden="true"></i> Page suivante</a>
+                {% endif %}
+            </div>
+            <div class="margin-top">
+                <a href="{{ path('admin_home') }}"><span aria-hidden="true">&larr;</span> Retourner à la page d'administration</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

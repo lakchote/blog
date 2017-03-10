@@ -7,17 +7,25 @@
 
 {% block content %}
     <div class="row">
-        <div class="col-xs-12 col-sm-8">
-            {% for msg in app.session.flashBag.get('success') %}
-                <div class="alert alert-warning">
-                    {{ msg }}
-                </div>
-            {% endfor %}
+        <div class="col-xs-12 col-sm-10 col-md-8">
             <h1>Administration</h1>
+                <div class="admin-options">
+                    <h2>Gestion des commentaires</h2>
+                {% for msg in app.session.flashBag.get('warning') %}
+                    <div class="alert alert-danger margin-top">
+                        <a href="{{ path('admin_show_flagged_comments') }}" class="admin-options__comments">{{ (msg > 1) ? msg ~ ' commentaires signalés' : msg ~ ' commentaire signalé'}}</a>
+                    </div>
+                {% endfor %}
+                {% for msg in app.session.flashBag.get('success') %}
+                    <div class="alert alert-success margin-top">
+                        <a href="{{ path('admin_show_comments') }}" class="admin-options__comments">{{ (msg > 1) ? msg ~ ' nouveaux commentaires' : msg ~ ' nouveau commentaire'}}</a>
+                    </div>
+                {% endfor %}
+                </div>
             <div class="admin-options">
-                <p class="admin-options__option"><span class="admin-options__arrow">&rarr;</span><a href="{{ path('admin_create_article') }}"> Créer un nouvel article</a></p>
+                <h2>Gestion des articles</h2>
+                <p class="admin-options__option"><span class="admin-options__arrow">&rarr;</span><a href="{{ path('admin_create_article') }}"> Créer un article</a></p>
                 <p class="admin-options__option"><span class="admin-options__arrow" >&rarr;</span><a href="{{ path('admin_show_articles') }}"> Modifier les articles</a></p>
-                <p class="admin-options__option"><span class="admin-options__arrow" >&rarr;</span><a href="#"> Gérer les commentaires</a></p>
             </div>
         </div>
     </div>
