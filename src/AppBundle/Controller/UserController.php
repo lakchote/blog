@@ -2,11 +2,11 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Form\ForgottenPasswordType;
-use AppBundle\Form\LoginType;
-use AppBundle\Form\ProfilType;
-use AppBundle\Form\RegisterType;
-use AppBundle\Form\ResetPasswordType;
+use AppBundle\Form\Type\ForgottenPasswordType;
+use AppBundle\Form\Type\LoginType;
+use AppBundle\Form\Type\ProfilType;
+use AppBundle\Form\Type\RegisterType;
+use AppBundle\Form\Type\ResetPasswordType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

@@ -11,23 +11,22 @@ namespace AppBundle\Service;
 
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
-use Symfony\Bridge\Twig\TwigEngine;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Twig_Environment;
 
 class SendMail
 {
     private $mailer;
     private $twig;
     private $em;
-    private $container;
+    private $adminMail;
 
-    public function __construct(\Swift_Mailer $mailer, TwigEngine $twig, EntityManager $em, ContainerInterface $container)
+    public function __construct(\Swift_Mailer $mailer, Twig_Environment $twig, EntityManager $em, $adminMail)
     {
 
         $this->mailer = $mailer;
         $this->twig = $twig;
         $this->em = $em;
-        $this->container = $container;
+        $this->adminMail = $adminMail;
     }
 
     public function sendResetPasswordMail($email)
@@ -55,7 +54,7 @@ class SendMail
         $message
             ->setSubject($data['sujet'])
             ->setFrom($data['email'])
-            ->setTo($this->container->getParameter('admin_mail'))
+            ->setTo($this->adminMail)
             ->setBody($this->twig->render('mail/contact_mail.html.twig', [
                 'sujet' => $data['sujet'],
                 'nom' => $data['nom'],

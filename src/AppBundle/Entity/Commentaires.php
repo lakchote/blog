@@ -129,12 +129,12 @@ class Commentaires
         $this->contenu = $contenu;
     }
 
-    public function getIsFlagged()
+    public function getFlagged()
     {
         return $this->isFlagged;
     }
 
-    public function setIsFlagged($isFlagged)
+    public function setFlagged($isFlagged)
     {
         $this->isFlagged = $isFlagged;
     }

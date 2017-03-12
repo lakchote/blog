@@ -4,6 +4,11 @@ parameters:
 #    parameter_name: value
 
 services:
+    twig.output_html:
+        class: Twig\OutputHtml
+        tags:
+            - { name: twig.extension }
+
     app.doctrine.hash_password_listener:
         class: AppBundle\Doctrine\HashPasswordListener
         autowire: true
@@ -41,7 +46,7 @@ services:
 
     app.send_mail:
         class: AppBundle\Service\SendMail
-        autowire: true
+        arguments: ['@swiftmailer.mailer', '@twig', '@doctrine.orm.entity_manager', '%admin_mail%']
 
     app.security.reset_password:
         class: AppBundle\Service\ResetPassword

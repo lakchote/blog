@@ -4,8 +4,9 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Article;
 use AppBundle\Entity\Commentaires;
-use AppBundle\Form\ContactType;
-use AppBundle\Form\NewCommentType;
+use AppBundle\Form\Type\ContactType;
+use AppBundle\Form\Type\NewCommentType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -17,6 +18,7 @@ class IndexController extends Controller
 
     /**
      * @Route("/{page}", name="homepage", requirements={"page" : "\d+"})
+     * @Method("GET")
      */
     public function indexAction($page = 0)
     {
@@ -30,6 +32,7 @@ class IndexController extends Controller
 
     /**
      * @Route("/about", name="about")
+     * @Method("GET")
      */
     public function aboutAction()
     {
@@ -38,6 +41,7 @@ class IndexController extends Controller
 
     /**
      * @Route("/contact", name="contact")
+     * @Method({"GET", "POST"})
      */
     public function contactAction(Request $request)
     {
@@ -56,6 +60,7 @@ class IndexController extends Controller
 
     /**
      * @Route("/show_article/{slug}", name="show_article")
+     * @Method("GET")
      */
     public function showArticleAction(Article $article)
     {
@@ -66,6 +71,7 @@ class IndexController extends Controller
 
     /**
      * @Route("/new/comment/{slug}", name="new_comment")
+     * @Method({"GET", "POST"})
      * @Security("is_granted('ROLE_USER')")
      */
     public function newCommentAction(Article $article, Request $request)
@@ -86,6 +92,7 @@ class IndexController extends Controller
 
     /**
      * @Route("/answer/comment/{id}", name="answer_comment")
+     * @Method({"GET", "POST"})
      * @Security("is_granted('ROLE_USER')")
      */
     public function answerCommentAction(Commentaires $commentaire, Request $request)
@@ -107,6 +114,7 @@ class IndexController extends Controller
 
     /**
      * @Route("/report/comment/{id}", name="report_comment")
+     * @Method("GET")
      * @Security("is_granted('ROLE_USER')")
      */
     public function reportCommentAction(Commentaires $commentaire)
@@ -119,7 +127,7 @@ class IndexController extends Controller
 
     /**
      * @Route("/search", name="search")
-
+     * @Method("POST")
      */
     public function searchAction(Request $request)
     {

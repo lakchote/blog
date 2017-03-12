@@ -10,7 +10,7 @@
             {% endfor %}
             <h1>{{ article.titre }}</h1>
             <div class="color__lightgrey">
-                {{ article.contenu|raw }}
+                {{ article.contenu|outputHtml }}
             </div>
             {% if is_granted('ROLE_ADMIN') %}
                 <a href="{{ path('admin_modify_article', {'id' : article.id}) }}" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
@@ -28,7 +28,7 @@
                         <img src="{{ asset(commentaire.user.imgPath ~ commentaire.user.photo.filename) }}" alt="" class="img-responsive img-circle pull-left comments__photo">
                     {% endif %}
                     <p class="color__yellow">{{ commentaire.user.username }}</p>
-                    <p class="color__lightgrey">{{ commentaire.contenu|raw }}                    {% if is_granted('ROLE_USER') %}
+                    <p class="color__lightgrey">{{ commentaire.contenu|outputHtml }}                    {% if is_granted('ROLE_USER') %}
                             <span class="pull-right user-actions">
                             {% if commentaire.lvl != 3 %}
                                 <a href="{{ path('answer_comment', {'id' : commentaire.id }) }}"> Répondre |</a>

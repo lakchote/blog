@@ -4,7 +4,8 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Article;
 use AppBundle\Entity\Commentaires;
-use AppBundle\Form\AdminArticleType;
+use AppBundle\Form\Type\AdminArticleType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -18,6 +19,7 @@ class AdminController extends Controller
 {
     /**
      * @Route("/admin", name="admin_home")
+     * @Method("GET")
      */
     public function homeAdminAction()
     {
@@ -34,6 +36,7 @@ class AdminController extends Controller
 
     /**
      * @Route("/admin/new/article", name="admin_create_article")
+     * @Method({"GET", "POST"})
      */
     public function createArticleAction(Request $request)
     {
@@ -53,6 +56,7 @@ class AdminController extends Controller
 
     /**
      * @Route("/admin/show/articles/{page}", name="admin_show_articles")
+     * @Method("GET")
      */
     public function showArticlesAction($page = 0)
     {
@@ -66,6 +70,7 @@ class AdminController extends Controller
 
     /**
      * @Route("/admin/modify/article/{id}", name="admin_modify_article")
+     * @Method({"GET", "PUT"})
      */
     public function modifyArticleAction(Article $article, Request $request)
     {
@@ -83,6 +88,7 @@ class AdminController extends Controller
 
     /**
      * @Route("/admin/delete/article/{id}", name="admin_delete_article")
+     * @Method("GET")
      */
     public function deleteArticleAction(Article $article)
     {
@@ -93,6 +99,7 @@ class AdminController extends Controller
 
     /**
      * @Route("/admin/delete_comment/{id}", name="admin_delete_comment")
+     * @Method("GET")
      */
     public function deleteCommentAction(Commentaires $commentaire, Request $request)
     {
@@ -103,6 +110,7 @@ class AdminController extends Controller
 
     /**
      * @Route("/admin/reset_comment/{id}", name="admin_reset_comment_status")
+     * @Method("GET")
      */
     public function resetCommentStatusAction(Commentaires $commentaire)
     {
@@ -113,6 +121,7 @@ class AdminController extends Controller
 
     /**
      * @Route("/admin/show/flagged/comments/{page}", name="admin_show_flagged_comments")
+     * @Method("GET")
      */
     public function showFlaggedCommentsAction($page = 0)
     {
@@ -126,6 +135,7 @@ class AdminController extends Controller
 
     /**
      * @Route("/admin/show/comments/{page}", name="admin_show_comments")
+     * @Method("GET")
      */
     public function showCommentsAction($page = 0)
     {
