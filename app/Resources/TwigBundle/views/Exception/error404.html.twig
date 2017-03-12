@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-xs-12 col-sm-10">
+            <h1>Page introuvable !</h1>
+            <p class="color__lightgrey">La page que vous avez demandé n'existe pas.</p>
+            <div class="margin-top">
+                <a href="{{ path('homepage') }}">&larr; Retourner à l'accueil</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

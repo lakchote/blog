@@ -19,4 +19,4 @@ parameters:
     user_photo_dir: '%kernel.root_dir%\..\web\uploads\user'
 
     # A secret key that's used to generate certain security-related tokens
-    secret:            ThisTokenIsNotSoSecretChangeIt
+    secret:            SuperSecretToken
