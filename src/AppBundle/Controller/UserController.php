@@ -7,6 +7,7 @@ use AppBundle\Form\Type\LoginType;
 use AppBundle\Form\Type\ProfilType;
 use AppBundle\Form\Type\RegisterType;
 use AppBundle\Form\Type\ResetPasswordType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -18,6 +19,7 @@ class UserController extends Controller
 {
     /**
      * @Route("/register", name="register")
+     * @Method({"GET","POST"})
      */
     public function registerAction(Request $request)
     {
@@ -39,6 +41,7 @@ class UserController extends Controller
 
     /**
      * @Route("/login", name="login")
+     * @Method({"GET", "POST"})
      */
     public function loginAction()
     {
@@ -56,6 +59,7 @@ class UserController extends Controller
 
     /**
      * @Route("/logout", name="logout")
+     * @Method("GET")
      */
     public function logoutAction()
     {
@@ -63,6 +67,7 @@ class UserController extends Controller
 
     /**
      * @Route("/login/facebook", name="login_facebook")
+     * @Method("GET")
      */
     public function loginFacebookAction()
     {
@@ -73,6 +78,7 @@ class UserController extends Controller
 
     /**
      * @Route("/login/facebook/check", name="login_facebook_check")
+     * @Method("GET")
      */
     public function loginFacebookCheckAction()
     {
@@ -80,6 +86,7 @@ class UserController extends Controller
 
     /**
      * @Route("/forgotten_password", name="forgotten_password")
+     * @Method({"GET","POST"})
      */
     public function forgottenPasswordAction(Request $request)
     {
@@ -90,6 +97,7 @@ class UserController extends Controller
             $email = $form['email']->getData();
             $this->get('app.send_mail')->sendResetPasswordMail($email);
             $this->addFlash('success', 'Un email vous a été envoyé avec les instructions à suivre.');
+            return new RedirectResponse($this->generateUrl('homepage'));
         }
         return $this->render('user_controller/forgotten_password.html.twig', [
             'form' => $form->createView()
@@ -98,6 +106,7 @@ class UserController extends Controller
 
     /**
      * @Route("/reset_password", name="reset_password")
+     * @Method({"GET","POST"})
      */
     public function resetPasswordAction(Request $request)
     {
@@ -123,6 +132,7 @@ class UserController extends Controller
 
     /**
      * @Route("/profil", name="profil_user")
+     * @Method({"GET","PUT"})
      * @Security("is_granted('ROLE_USER')")
      */
     public function profilUserAction(Request $request)
@@ -142,6 +152,7 @@ class UserController extends Controller
 
     /**
      * @Route("/delete/image", name="delete_user_photo")
+     * @Method("GET")
      * @Security("is_granted('ROLE_USER')")
      */
     public function deleteUserPhotoAction()

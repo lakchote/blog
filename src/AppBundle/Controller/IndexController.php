@@ -52,6 +52,7 @@ class IndexController extends Controller
             $data = $form->getData();
             $this->get('app.send_mail')->sendContactMail($data);
             $this->addFlash('success', 'Nous avons reçu votre mail et vous répondrons dans les plus brefs délais.');
+            return new RedirectResponse($this->generateUrl('homepage'));
         }
         return $this->render('index_controller/contact.html.twig', [
             'form' => $form->createView()
