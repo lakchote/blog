@@ -16,3 +16,6 @@
 /vendor/
 /app/DoctrineMigrations/
 /web/bundles/
+/web/config.php
+/web/uploads/
+
