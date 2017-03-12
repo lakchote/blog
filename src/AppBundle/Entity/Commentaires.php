@@ -54,12 +54,6 @@ class Commentaires
      */
     private $status = 'NOT_READ';
 
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $dateOfPost;
-
     /**
      * @Gedmo\TreeLeft
      * @ORM\Column(type="integer")

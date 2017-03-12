@@ -42,7 +42,7 @@ class ResetPassword
         return false;
     }
 
-    private function updateUserPassword($user, $newPassword)
+    private function updateUserPassword(User $user, $newPassword)
     {
         $user->setPlainPassword($newPassword);
         $user->setResetPassword(null);
