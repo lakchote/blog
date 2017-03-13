@@ -87,11 +87,12 @@ class LoginFacebookAuthenticator extends AbstractGuardAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
+        $targetPath = null;
         if($request->getSession() instanceof SessionInterface) {
             $targetPath = $this->getTargetPath($request->getSession(), $providerKey);
-            return new RedirectResponse($targetPath);
+           if(!$targetPath) return new RedirectResponse($this->router->generate('homepage'));
         }
-        return new RedirectResponse($this->router->generate('homepage'));
+        return new RedirectResponse($targetPath);
     }
 
     public function supportsRememberMe()

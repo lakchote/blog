@@ -141,6 +141,7 @@ class AdminController extends Controller
     {
         $paginationData = $this->get('app.show_comments')->handlePagination($page);
         $commentaires = $this->get('app.show_comments')->getComments($page);
+        $this->get('app.show_comments')->markCommentsAsRead();
         return $this->render('admin_controller/show_comments.html.twig', [
             'commentaires' => $commentaires,
             'data' => $paginationData

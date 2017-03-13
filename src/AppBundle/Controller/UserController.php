@@ -152,7 +152,7 @@ class UserController extends Controller
 
     /**
      * @Route("/delete/image", name="delete_user_photo")
-     * @Method("GET")
+     * @Method("PUT")
      * @Security("is_granted('ROLE_USER')")
      */
     public function deleteUserPhotoAction()

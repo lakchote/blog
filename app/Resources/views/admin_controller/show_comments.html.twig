@@ -10,7 +10,7 @@
             <h1>Nouveaux commentaires</h1>
             {% for commentaire in commentaires %}
                 <div class="margin-top__comments">
-                    <p> {% if commentaire.isFlagged %}
+                    <p> {% if commentaire.flagged %}
                             <span class="color__lightyellow">
                            {{ (commentaire.countIsFlagged > 1) ? '(Commentaire signalé ' ~ commentaire.countIsFlagged ~ ' fois)' : '(Commentaire signalé)'}}
                                 </span>
@@ -19,7 +19,7 @@
                                     href="{{ path('show_article', {'slug' : commentaire.article.slug}) }}">{{ commentaire.article.titre }}</a><br/>
                         <div class="buttons-margin"><span class="color__lightgrey">{{ commentaire.contenu }}</span></div>
                         <div class="buttons-margin">
-                            {% if commentaire.isFlagged %}
+                            {% if commentaire.flagged %}
                                 <a href="{{ path('admin_reset_comment_status', {'id' : commentaire.id}) }}" class="btn-sm btn-success"><i class="fa fa-check" aria-hidden="true"></i>Enlever le signalement</a>
                                 <div class="visible-xs buttons-margin__comments"></div>
                             {% endif %}

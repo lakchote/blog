@@ -1,0 +1,23 @@
+{% macro recursiveComment(commentaire) %}
+    <div class="comments">
+        {% import _self as self %}
+        {% if commentaire.user.photo != null %}
+            <img src="{{ asset(commentaire.user.imgPath ~ commentaire.user.photo.filename) }}" alt="" class="img-responsive img-circle pull-left comments__photo">
+        {% endif %}
+        <p class="color__yellow">{{ commentaire.user.username }}</p>
+        <p class="color__lightgrey">{{ commentaire.contenu|outputHtml }}                    {% if is_granted('ROLE_USER') %}
+                <span class="pull-right user-actions">
+                            {% if commentaire.lvl < 3 %}
+                                <a href="{{ path('answer_comment', {'id' : commentaire.id }) }}"> Répondre |</a>
+                            {% endif %}
+                    <a href="{{ path('report_comment', {'id' : commentaire.id}) }}"> Signaler</a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('admin_delete_comment', {'id' : commentaire.id}) }}" class="color__yellow">&nbsp;<i class="fa fa-times" aria-hidden="true"></i> Supprimer</a>
+                    {% endif %}
+                        </span>
+            {% endif %}</p>
+        {% for child in commentaire.children %}
+            {{ self.recursiveComment(child) }}
+        {% endfor %}
+    </div>
+{% endmacro %}
