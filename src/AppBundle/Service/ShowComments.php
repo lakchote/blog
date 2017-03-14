@@ -62,18 +62,4 @@ class ShowComments
     {
         return ceil(count($this->em->getRepository('AppBundle:Commentaires')->getFlaggedComments())/$this->maxResults);
     }
-
-    public function markCommentsAsRead()
-    {
-        $commentaires = $this->em->getRepository('AppBundle:Commentaires')->getUnreadComments();
-        foreach($commentaires as $commentaire)
-        {
-            /**
-             * @var Commentaires $commentaire
-             */
-            $commentaire->setStatus('READ');
-            $this->em->persist($commentaire);
-        }
-        $this->em->flush();
-    }
 }
