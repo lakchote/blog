@@ -31,7 +31,7 @@ class AdminController extends Controller
         {
             $this->addFlash('success', $resultNewComments);
         }
-        return $this->render('admin_controller/home.html.twig');
+        return ($resultFlaggedComments && $resultNewComments == null) ? $this->render('admin_controller/home_nocomments.html.twig') : $this->render('admin_controller/home.html.twig');
     }
 
     /**
