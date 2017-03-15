@@ -33,7 +33,7 @@ class Commentaires
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank()
-     * @Assert\Length(min="15")
+     * @Assert\Length(min="15", max="1000")
      */
     private $contenu;
 
