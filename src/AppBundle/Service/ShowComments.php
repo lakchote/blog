@@ -9,7 +9,6 @@
 namespace AppBundle\Service;
 
 
-use AppBundle\Entity\Commentaires;
 use Doctrine\ORM\EntityManager;
 
 class ShowComments

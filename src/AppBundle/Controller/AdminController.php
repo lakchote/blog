@@ -77,6 +77,7 @@ class AdminController extends Controller
         {
             $this->get('app.manager.articles_manager')->persistArticle($article);
             $this->addFlash('success', 'Vos modifications ont bien été enregistrées.');
+            return new RedirectResponse($this->generateUrl('admin_modify_article', ['id' => $article->getId()]));
         }
         return $this->render('admin_controller/modify_article.html.twig', [
             'form' => $form->createView()
