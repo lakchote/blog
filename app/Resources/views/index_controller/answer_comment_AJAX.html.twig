@@ -1,0 +1,12 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-10">
+        <h1>Répondre à {{ commentaire.user.username }}</h1>
+        <blockquote>
+            <p class="color__lightgrey"> "{{ commentaire.contenu }}"</p>
+        </blockquote>
+        {{ form_start(form) }}
+        {{ form_row(form.contenu) }}
+        <button type="submit" id="answerComment" class="btn btn-warning" formnovalidate><span class="fa fa-check" aria-hidden="true"></span> Valider</button>
+        {{ form_end(form) }}
+    </div>
+</div>

@@ -43,7 +43,7 @@ class CommentsManager
 
     public function reportComment(Commentaires $commentaire)
     {
-        $commentaire->setIsFlagged(true);
+        $commentaire->setFlagged(true);
         $commentaire->setCountIsFlagged();
         $this->em->persist($commentaire);
         $this->em->flush();
@@ -57,7 +57,7 @@ class CommentsManager
 
     public function resetCommentFlaggedStatus(Commentaires $commentaire)
     {
-        $commentaire->setIsFlagged(false);
+        $commentaire->setFlagged(false);
         $commentaire->resetCountIsFlagged();
         $this->em->persist($commentaire);
         $this->em->flush();

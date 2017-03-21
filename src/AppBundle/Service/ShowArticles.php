@@ -43,15 +43,6 @@ class ShowArticles
 
     public function getSearchResults($data)
     {
-        $searchResults = [];
-        $articles = $this->em->getRepository('AppBundle:Article')->findAll();
-        foreach($articles as $article)
-        {
-            if(stripos($article->getTitre(), $data) !== false)
-            {
-                $searchResults[] = $article;
-            }
-        }
-        return $searchResults;
+        return $this->em->getRepository('AppBundle:Article')->getSearchResults($data);
     }
 }

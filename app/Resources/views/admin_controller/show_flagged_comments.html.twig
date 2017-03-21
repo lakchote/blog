@@ -8,11 +8,6 @@
 {%  block content %}
     <div class="row">
         <div class="col-xs-12 col-sm-10">
-            {% for msg in app.session.flashBag.get('success') %}
-                <div class="alert alert-warning">
-                    {{ msg }}
-                </div>
-            {% endfor %}
             <h1>Commentaires signalés</h1>
             {% for commentaire in commentaires %}
                 <div class="comments-info">

@@ -23,15 +23,12 @@ class AdminController extends Controller
      */
     public function homeAdminAction()
     {
-        if($resultFlaggedComments = $this->get('app.show_comments')->countFlaggedComments())
-        {
-             $this->addFlash('warning', $resultFlaggedComments);
-        }
-        if($resultNewComments = $this->get('app.show_comments')->countUnreadComments())
-        {
-            $this->addFlash('success', $resultNewComments);
-        }
-        return ($resultFlaggedComments && $resultNewComments == null) ? $this->render('admin_controller/home_nocomments.html.twig') : $this->render('admin_controller/home.html.twig');
+        $resultFlaggedComments = $this->get('app.show_comments')->countFlaggedComments();
+        $resultNewComments = $this->get('app.show_comments')->countUnreadComments();
+        return $this->render('admin_controller/home.html.twig', [
+            'flaggedComments' => $resultFlaggedComments,
+            'newComments' => $resultNewComments
+        ]);
     }
 
     /**
@@ -46,7 +43,7 @@ class AdminController extends Controller
         {
             $data = $form->getData();
             $this->get('app.manager.articles_manager')->persistArticle($data);
-            $this->addFlash('newArticle', 'L\'article a été créé.');
+            $this->addFlash('success', 'L\'article a été créé.');
             return new RedirectResponse($this->generateUrl('admin_home'));
         }
         return $this->render('admin_controller/create_article.html.twig', [
@@ -70,7 +67,7 @@ class AdminController extends Controller
 
     /**
      * @Route("/admin/modify/article/{id}", name="admin_modify_article")
-     * @Method({"GET", "PUT"})
+     * @Method({"GET", "POST"})
      */
     public function modifyArticleAction(Article $article, Request $request)
     {

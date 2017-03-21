@@ -3,7 +3,7 @@
 {% block content %}
     <div class="row">
         <div class="col-xs-12 col-sm-8">
-            <h1>Résultats de la recherche <span class="color__lightgrey">({{ nbArticles }} trouvés)</span></h1>
+            <h1>Résultats de la recherche <span class="color__lightgrey">({{ articles|length }} trouvés)</span></h1>
             {% for article in articles %}
                 <div class="margin-top">
                     <h2 class="color__yellow"><a href="{{ path('show_article', {'slug' : article.slug}) }}" class="color__yellow">{{ article.titre }}</a></h2>
@@ -17,6 +17,9 @@
                     {% endif %}
                 </div>
             {% endfor %}
+            <div class="margin-top">
+                <a href="{{ app.request.headers.get('referer') }}">&larr; Retourner à la page précédente</a>
+            </div>
         </div>
     </div>
 {% endblock %}

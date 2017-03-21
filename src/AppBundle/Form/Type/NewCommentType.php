@@ -13,7 +13,7 @@ class NewCommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('contenu', TextareaType::class, [
-            'label' => 'Contenu',
+            'label' => 'Votre message',
             'attr' => ['style' => 'height:200px;' ]
         ]);
     }

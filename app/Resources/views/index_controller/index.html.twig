@@ -3,16 +3,6 @@
 {% block content %}
     <div class="row">
         <div class="col-xs-12 col-sm-8">
-            {% for msg in app.session.flashBag.get('warning') %}
-                 <div class="alert alert-danger">
-                     {{ msg }}
-                 </div>
-            {% endfor %}
-            {% for msg in app.session.flashBag.get('success') %}
-                <div class="alert alert-warning">
-                    {{ msg }}
-                </div>
-            {% endfor %}
             {% for article in articles %}
                 <div class="col-xs-12">
                     <div class="article__title">

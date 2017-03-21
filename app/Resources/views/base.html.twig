@@ -66,6 +66,21 @@
     <div class="header__image"></div>
 </header>
 <div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-8">
+            {% for msg in app.session.flashBag.get('warning') %}
+                <div class="alert alert-warning alert-dismissable fade in">
+                    {{ msg }}
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                </div>
+            {% endfor %}
+            {% for msg in app.session.flashBag.get('success') %}
+                <div class="alert alert-success">
+                    {{ msg }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
     {% block content %}
     {% endblock %}
 </div>

@@ -3,11 +3,6 @@
 {% block content %}
     <div class="row">
         <div class="col-xs-12 col-sm-10">
-            {% for msg in app.session.flashBag.get('success') %}
-                <div class="alert alert-warning">
-                    {{ msg }}
-                </div>
-            {% endfor %}
             <h1>Modifier l'article </h1>
             {{ form_start(form) }}
             {{ form_row(form.titre) }}
@@ -15,7 +10,7 @@
             <button type="submit" class="btn btn-warning" formnovalidate><i class="fa fa-pencil" aria-hidden="true"></i> Modifier l'article</button>
             {{ form_end(form) }}
             <div class="margin-top">
-                <a href="{{ path('admin_show_articles') }}"><span aria-hidden="true">&larr;</span> Retourner à la page précédente</a>
+                <a href="{{ path('admin_show_articles') }}"><span aria-hidden="true">&larr;</span> Retourner à la page de modification des articles</a>
             </div>
         </div>
     </div>

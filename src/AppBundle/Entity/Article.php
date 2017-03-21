@@ -123,7 +123,7 @@ class Article
     public function getExcerpt()
     {
         $contenu = strip_tags($this->getContenu());
-        $excerpt = substr($contenu, 0, 300) . '[...]';
+        (strlen($contenu) > 300) ? $excerpt = substr($contenu, 0, 300) . '[...]' : $excerpt = $contenu;
         return $excerpt;
     }
 }

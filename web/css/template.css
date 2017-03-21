@@ -16,6 +16,17 @@ h1, h2, form label
     color:#fff;
 }
 
+.modal__comment
+{
+    background-color: #222;
+}
+
+.modal__comment-header
+{
+    background-color: #f0ad4e;
+    border:0;
+}
+
 a:hover
 {
     text-decoration: none;
@@ -135,6 +146,11 @@ a:hover
 a, a:hover
 {
     color:#fff;
+}
+
+.comments__margin-top
+{
+    margin-top: 5%;
 }
 
 .buttons-margin

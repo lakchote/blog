@@ -61,21 +61,9 @@ class IndexController extends Controller
 
     /**
      * @Route("/show_article/{slug}", name="show_article")
-     * @Method("GET")
-     */
-    public function showArticleAction(Article $article)
-    {
-        return $this->render('index_controller/show_article.html.twig', [
-            'article' => $article
-        ]);
-    }
-
-    /**
-     * @Route("/new/comment/{slug}", name="new_comment")
      * @Method({"GET", "POST"})
-     * @Security("is_granted('ROLE_USER')")
      */
-    public function newCommentAction(Article $article, Request $request)
+    public function showArticleAction(Article $article, Request $request)
     {
         $form = $this->createForm(NewCommentType::class);
         $form->handleRequest($request);
@@ -86,7 +74,8 @@ class IndexController extends Controller
             $this->addFlash('success', 'Votre commentaire a été enregistré.');
             return new RedirectResponse($this->generateUrl('show_article', ['slug' => $article->getSlug()]));
         }
-        return $this->render('index_controller/new_comment.html.twig', [
+        return $this->render('index_controller/show_article.html.twig', [
+            'article' => $article,
             'form' => $form->createView()
         ]);
     }
@@ -108,7 +97,11 @@ class IndexController extends Controller
             $this->addFlash('success', 'Votre commentaire a été enregistré.');
             return new RedirectResponse($this->generateUrl('show_article', ['slug' => $article->getSlug()]));
         }
-        return $this->render('index_controller/new_comment.html.twig', [
+        return (!$request->isXmlHttpRequest()) ? $this->render('index_controller/answer_comment.html.twig', [
+            'commentaire' => $commentaire,
+            'form' => $form->createView()
+        ]) : $this->render('index_controller/answer_comment_AJAX.html.twig', [
+            'commentaire' => $commentaire,
             'form' => $form->createView()
         ]);
     }
@@ -133,21 +126,18 @@ class IndexController extends Controller
     public function searchAction(Request $request)
     {
         $data = $request->get('user_input');
-        $searchResults = $this->get('app.show_articles')->getSearchResults($data);
         if(!$data)
         {
             $this->addFlash('warning', 'Vous devez spécifier un terme à rechercher.');
-            return new RedirectResponse($this->generateUrl('homepage'));
         }
+        $searchResults = $this->get('app.show_articles')->getSearchResults($data);
         if(!$searchResults)
         {
             $this->addFlash('warning', 'Aucun article n\'a été trouvé.');
-            return new RedirectResponse($this->generateUrl('homepage'));
         }
-        $nbArticles = count($searchResults);
+        if(!$data || !$searchResults) return new RedirectResponse($request->headers->get('referer'));
         return $this->render('index_controller/search_results.html.twig', [
-            'articles' => $searchResults,
-            'nbArticles' => $nbArticles
+            'articles' => $searchResults
         ]);
     }
 }

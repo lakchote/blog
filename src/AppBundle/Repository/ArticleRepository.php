@@ -23,4 +23,14 @@ class ArticleRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getSearchResults($userInput)
+    {
+        return $this
+            ->createQueryBuilder('a')
+            ->where('a.titre LIKE :userInput')
+            ->setParameter('userInput', '%' . $userInput . '%')
+            ->getQuery()
+            ->getResult();
+    }
 }

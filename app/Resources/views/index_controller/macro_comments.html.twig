@@ -8,7 +8,7 @@
         <p class="color__lightgrey">{{ commentaire.contenu|outputHtml }}                    {% if is_granted('ROLE_USER') %}
                 <span class="pull-right user-actions">
                             {% if commentaire.lvl < 3 %}
-                                <a href="{{ path('answer_comment', {'id' : commentaire.id }) }}"> Répondre |</a>
+                                <a href="{{ path('answer_comment', {'id' : commentaire.id }) }}" class="toggleModal"> Répondre |</a>
                             {% endif %}
                     <a href="{{ path('report_comment', {'id' : commentaire.id}) }}"> Signaler</a>
                     {% if is_granted('ROLE_ADMIN') %}

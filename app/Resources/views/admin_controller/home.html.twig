@@ -9,23 +9,18 @@
     <div class="row">
         <div class="col-xs-12 col-sm-10 col-md-8">
             <h1>Administration</h1>
-                {% for msg in app.session.flashBag.get('newArticle') %}
-                    <div class="alert alert-info">
-                        {{ msg }}
-                    </div>
-                {% endfor %}
                 <div class="admin-options">
                     <h2>Gestion des commentaires</h2>
-                {% for msg in app.session.flashBag.get('warning') %}
-                    <div class="alert alert-danger margin-top">
-                        <a href="{{ path('admin_show_flagged_comments') }}" class="admin-options__comments">{{ (msg > 1) ? msg ~ ' commentaires signalés' : msg ~ ' commentaire signalé'}}</a>
-                    </div>
-                {% endfor %}
-                {% for msg in app.session.flashBag.get('success') %}
-                    <div class="alert alert-success margin-top">
-                        <a href="{{ path('admin_show_comments') }}" class="admin-options__comments">{{ (msg > 1) ? msg ~ ' nouveaux commentaires' : msg ~ ' nouveau commentaire'}}</a>
-                    </div>
-                {% endfor %}
+                    {% if flaggedComments != 0 %}
+                        <div class="alert alert-danger margin-top">
+                            <a href="{{ path('admin_show_flagged_comments') }}" class="admin-options__comments">{{ (flaggedComments > 1) ? flaggedComments ~ ' commentaires signalés' : flaggedComments ~ ' commentaire signalé'}}</a>
+                        </div>
+                    {% endif %}
+                    {% if newComments != 0 %}
+                        <div class="alert alert-success margin-top">
+                            <a href="{{ path('admin_show_comments') }}" class="admin-options__comments">{{ (newComments > 1) ? newComments ~ ' nouveaux commentaires' : newComments ~ ' nouveau commentaire'}}</a>
+                        </div>
+                    {% endif %}
                 </div>
             <div class="admin-options">
                 <h2>Gestion des articles</h2>
