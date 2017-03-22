@@ -20,6 +20,10 @@
                         <div class="alert alert-success margin-top">
                             <a href="{{ path('admin_show_comments') }}" class="admin-options__comments">{{ (newComments > 1) ? newComments ~ ' nouveaux commentaires' : newComments ~ ' nouveau commentaire'}}</a>
                         </div>
+                    {% else %}
+                        <div class="alert alert-success margin-top">
+                            <a href="{{ path('admin_show_comments') }}" class="admin-options__comments">Voir tous les commentaires</a>
+                        </div>
                     {% endif %}
                 </div>
             <div class="admin-options">

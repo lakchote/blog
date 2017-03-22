@@ -12,6 +12,7 @@ $(function () {
         e.preventDefault();
         var url = $(this).attr('href');
         $('#modalAnswerComment').modal();
+        $('#modal__load-answerComment').html('Chargement...');
         $.ajax({
             url: url,
             method: 'GET'

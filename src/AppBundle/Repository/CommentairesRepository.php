@@ -8,6 +8,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Commentaires;
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 
 class CommentairesRepository extends NestedTreeRepository
@@ -28,7 +29,7 @@ class CommentairesRepository extends NestedTreeRepository
         return $this
             ->createQueryBuilder('c')
             ->where('c.status = :status')
-            ->setParameter('status', 'NOT_READ')
+            ->setParameter('status', Commentaires::STATUS_NOT_READ)
             ->getQuery()
             ->getResult();
     }
@@ -39,6 +40,7 @@ class CommentairesRepository extends NestedTreeRepository
             ->createQueryBuilder('c')
             ->setFirstResult($offset)
             ->setMaxResults($maxResults)
+            ->orderBy('c.id', 'DESC')
             ->getQuery()
             ->getResult();
     }

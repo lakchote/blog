@@ -13,6 +13,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Commentaires
 {
+    const STATUS_READ = 0;
+    const STATUS_NOT_READ = 1;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -50,9 +53,9 @@ class Commentaires
 
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="smallint")
      */
-    private $status = 'NOT_READ';
+    private $status = Commentaires::STATUS_NOT_READ;
 
     /**
      * @Gedmo\TreeLeft
@@ -91,11 +94,6 @@ class Commentaires
      * @ORM\OrderBy({"lft" = "ASC"})
      */
     private $children;
-
-    public function __construct()
-    {
-        $this->dateOfPost = new \DateTime();
-    }
 
     public function getUser()
     {

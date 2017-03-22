@@ -71,7 +71,7 @@ class CommentsManager
             /**
              * @var Commentaires $commentaire
              */
-            $commentaire->setStatus('READ');
+            $commentaire->setStatus(Commentaires::STATUS_READ);
             $this->em->persist($commentaire);
         }
         $this->em->flush();
