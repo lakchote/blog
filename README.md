@@ -1,69 +1,44 @@
-Symfony Standard Edition
-========================
+About this project
+==================
 
-Welcome to the Symfony Standard Edition - a fully-functional Symfony
-application that you can use as the skeleton for your new applications.
+This project is a fictional situation where a writer named *Jean Forteroche* wants 
+to publish his new book online episode by episode without having to use WordPress.
+More details can be found at [here][1].
 
-For details on how to download and get started with Symfony, see the
-[Installation][1] chapter of the Symfony Documentation.
+It is entirely made with the [Symfony framework][2] and has successfully passed
+[SensioLabsInsight][3] validation. [**Guard authentication**][4] is also implemented.
 
-What's inside?
+![SensioLabsInsight medal][score]
+
+Libraries used
 --------------
 
-The Symfony Standard Edition is configured with the following defaults:
+* jQuery
+* Bootstrap
+* TinyMCE
 
-  * An AppBundle you can use to start coding;
+Install instructions
+--------------------
 
-  * Twig as the only configured template engine;
+Clone the repository : `git clone https://github.com/lakchote/blog.git`
 
-  * Doctrine ORM/DBAL;
+*(Type in console @ project's repository )*
 
-  * Swiftmailer;
+Download the dependencies with composer : `composer install`
 
-  * Annotations enabled for everything.
+Create the database : `php bin/console doctrine:database:create`
 
-It comes pre-configured with the following bundles:
+Run the migrations : `php bin/console doctrine:migrations:migrate`
 
-  * **FrameworkBundle** - The core Symfony framework bundle
+Load the fixtures (for the Admin user) : `php bin/console doctrine:fixtures:load`
 
-  * [**SensioFrameworkExtraBundle**][6] - Adds several enhancements, including
-    template and routing annotation capability
+Run the project : `php bin/console server:run` 
 
-  * [**DoctrineBundle**][7] - Adds support for the Doctrine ORM
+[1]: https://openclassrooms.com/projects/creez-un-blog-pour-un-ecrivain-1
+[2]: https://symfony.com/
+[3]: https://insight.sensiolabs.com/
+[4]: http://symfony.com/doc/current/security/guard_authentication.html
+[score]: https://insight.sensiolabs.com/projects/e8d7fac7-a902-4647-b5a1-1b6d9ccd1a63/small.png
 
-  * [**TwigBundle**][8] - Adds support for the Twig templating engine
 
-  * [**SecurityBundle**][9] - Adds security by integrating Symfony's security
-    component
 
-  * [**SwiftmailerBundle**][10] - Adds support for Swiftmailer, a library for
-    sending emails
-
-  * [**MonologBundle**][11] - Adds support for Monolog, a logging library
-
-  * **WebProfilerBundle** (in dev/test env) - Adds profiling functionality and
-    the web debug toolbar
-
-  * **SensioDistributionBundle** (in dev/test env) - Adds functionality for
-    configuring and working with Symfony distributions
-
-  * [**SensioGeneratorBundle**][13] (in dev/test env) - Adds code generation
-    capabilities
-
-  * **DebugBundle** (in dev/test env) - Adds Debug and VarDumper component
-    integration
-
-All libraries and bundles included in the Symfony Standard Edition are
-released under the MIT or BSD license.
-
-Enjoy!
-
-[1]:  https://symfony.com/doc/3.2/setup.html
-[6]:  https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
-[7]:  https://symfony.com/doc/3.2/doctrine.html
-[8]:  https://symfony.com/doc/3.2/templating.html
-[9]:  https://symfony.com/doc/3.2/security.html
-[10]: https://symfony.com/doc/3.2/email.html
-[11]: https://symfony.com/doc/3.2/logging.html
-[12]: https://symfony.com/doc/3.2/assetic/asset_management.html
-[13]: https://symfony.com/doc/current/bundles/SensioGeneratorBundle/index.html
