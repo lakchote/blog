@@ -132,7 +132,7 @@ class UserController extends Controller
 
     /**
      * @Route("/profil", name="profil_user")
-     * @Method({"GET","PUT"})
+     * @Method({"GET", "POST"})
      * @Security("is_granted('ROLE_USER')")
      */
     public function profilUserAction(Request $request)
@@ -152,7 +152,7 @@ class UserController extends Controller
 
     /**
      * @Route("/delete/image", name="delete_user_photo")
-     * @Method("PUT")
+     * @Method("GET")
      * @Security("is_granted('ROLE_USER')")
      */
     public function deleteUserPhotoAction()
