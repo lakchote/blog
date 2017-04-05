@@ -10,7 +10,11 @@
             <button type="submit" class="btn btn-warning" formnovalidate><i class="fa fa-pencil" aria-hidden="true"></i> Modifier l'article</button>
             {{ form_end(form) }}
             <div class="margin-top">
-                <a href="{{ path('admin_show_articles') }}"><span aria-hidden="true">&larr;</span> Retourner à la page de modification des articles</a>
+                {% if ref is null %}
+                    <a href="{{ path('admin_show_articles') }}"><span aria-hidden="true">&larr;</span> Retourner à la page de modification des articles</a>
+                {% else %}
+                    <a href="{{ path('show_article', {'slug' : ref}) }}"><span aria-hidden="true">&larr;</span> Revenir à la page de l'article</a>
+                {% endif %}
             </div>
         </div>
     </div>

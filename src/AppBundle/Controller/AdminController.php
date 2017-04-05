@@ -66,10 +66,10 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/modify/article/{id}", name="admin_modify_article")
+     * @Route("/admin/modify/article/{id}/{ref}", name="admin_modify_article")
      * @Method({"GET", "POST"})
      */
-    public function modifyArticleAction(Article $article, Request $request)
+    public function modifyArticleAction(Article $article, $ref = null,  Request $request)
     {
         $form = $this->createForm(AdminArticleType::class, $article);
         $form->handleRequest($request);
@@ -80,7 +80,8 @@ class AdminController extends Controller
             return new RedirectResponse($this->generateUrl('admin_modify_article', ['id' => $article->getId()]));
         }
         return $this->render('admin_controller/modify_article.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'ref' => $ref
         ]);
     }
 

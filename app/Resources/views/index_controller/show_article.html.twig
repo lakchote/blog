@@ -8,7 +8,7 @@
                 {{ article.contenu|outputHtml }}
             </div>
             {% if is_granted('ROLE_ADMIN') %}
-                <a href="{{ path('admin_modify_article', {'id' : article.id}) }}" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
+                <a href="{{ path('admin_modify_article', {'id' : article.id, 'ref' : article.slug }) }}" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
             {% endif %}
             <h2 class="color__yellow">Commentaires</h2>
             {% if article.commentaires|length == 0 %}
