@@ -132,7 +132,7 @@ class UserController extends Controller
 
     /**
      * @Route("/profil", name="profil_user")
-     * @Method({"GET", "POST"})
+     * @Method({"GET", "POST", "DELETE"})
      * @Security("is_granted('ROLE_USER')")
      */
     public function profilUserAction(Request $request)
@@ -144,6 +144,7 @@ class UserController extends Controller
         {
             $this->getDoctrine()->getManager()->persist($user);
             $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute('profil_user');
         }
         return $this->render('user_controller/profil.html.twig', [
             'form' => $form->createView()
@@ -152,7 +153,7 @@ class UserController extends Controller
 
     /**
      * @Route("/delete/image", name="delete_user_photo")
-     * @Method("GET")
+     * @Method("DELETE")
      * @Security("is_granted('ROLE_USER')")
      */
     public function deleteUserPhotoAction()
