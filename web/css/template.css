@@ -150,7 +150,7 @@ a, a:hover
 
 .comments__margin-top
 {
-    margin-top: 5%;
+    margin-top: 2%;
 }
 
 .buttons-margin
@@ -186,6 +186,7 @@ a, a:hover
 {
     .user-actions
     {
+        padding-top: 3px;
         font-size: 0.8em;
     }
 

@@ -66,10 +66,10 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/modify/article/{id}/{ref}", name="admin_modify_article")
+     * @Route("/admin/modify/article/{id}/{ref}", name="admin_modify_article", defaults={"ref" : null})
      * @Method({"GET", "POST"})
      */
-    public function modifyArticleAction(Article $article, $ref = null,  Request $request)
+    public function modifyArticleAction(Article $article, $ref,  Request $request)
     {
         $form = $this->createForm(AdminArticleType::class, $article);
         $form->handleRequest($request);
@@ -77,7 +77,8 @@ class AdminController extends Controller
         {
             $this->get('app.manager.articles_manager')->persistArticle($article);
             $this->addFlash('success', 'Vos modifications ont bien été enregistrées.');
-            return new RedirectResponse($this->generateUrl('admin_modify_article', ['id' => $article->getId()]));
+            return ($ref) ? new RedirectResponse($this->generateUrl('admin_modify_article', ['id' => $article->getId(), 'ref' => $ref])) :
+                            new RedirectResponse($this->generateUrl('admin_modify_article', ['id' => $article->getId()]));
         }
         return $this->render('admin_controller/modify_article.html.twig', [
             'form' => $form->createView(),

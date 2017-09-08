@@ -35,7 +35,7 @@ class Article
     private $contenu;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $datePublication;
 

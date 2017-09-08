@@ -72,7 +72,7 @@ class User implements UserInterface, \Serializable
     private $photo;
 
     /**
-     * @ORM\OneToMany(targetEntity="Commentaires", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Commentaires", mappedBy="user", cascade={"remove"})
      */
     private $commentaires;
 

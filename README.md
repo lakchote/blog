@@ -28,9 +28,13 @@ Download the dependencies with composer : `composer install`
 
 Create the database : `php bin/console doctrine:database:create`
 
-Run the migrations : `php bin/console doctrine:migrations:migrate`
+Create the migration file : `php bin/console doctrine:migrations:diff`
+
+Run the migration : `php bin/console doctrine:migrations:migrate`
 
 Load the fixtures (for the Admin user) : `php bin/console doctrine:fixtures:load`
+
+Modify the absolute URL inside "app/config/services.yml" with your website's URL to enable OAuth2 authentification : `redirectUri: "https://yourWebsiteURL.com/login/facebook/check"`
 
 Run the project : `php bin/console server:run` 
 

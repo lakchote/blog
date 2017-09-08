@@ -37,8 +37,8 @@ class SendMail
         $user->setResetPassword($resetId);
         $this->em->persist($user);
         $this->em->flush();
-        $message = new \Swift_Message();
-        $message->setSubject('Rénitialisation de votre mot de passe sur Jean Forteroche')
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Rénitialisation de votre mot de passe sur Jean Forteroche')
             ->setFrom('noreply@jeanforteroche.com')
             ->setTo($email)
             ->setBody($this->twig->render('mail/forgotten_password_mail.html.twig', [
@@ -50,8 +50,7 @@ class SendMail
 
     public function sendContactMail($data)
     {
-        $message = new \Swift_Message();
-        $message
+        $message = \Swift_Message::newInstance()
             ->setSubject($data['sujet'])
             ->setFrom($data['email'])
             ->setTo($this->adminMail)

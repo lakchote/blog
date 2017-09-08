@@ -1,5 +1,15 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        img {
+            max-width: 100%;
+            height:auto;
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
     <div class="row">
         <div class="col-xs-12 col-sm-10 ">
@@ -9,10 +19,6 @@
             </div>
             {% if is_granted('ROLE_ADMIN') %}
                 <a href="{{ path('admin_modify_article', {'id' : article.id, 'ref' : article.slug }) }}" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier</a>
-            {% endif %}
-            <h2 class="color__yellow">Commentaires</h2>
-            {% if article.commentaires|length == 0 %}
-                <span class="color__grey">Pas de commentaires pour l'instant.</span><div class="visible-xs"><br/></div>
             {% endif %}
             <h3>Poster un commentaire</h3>
             {% if app.user %}
@@ -25,19 +31,23 @@
             {% else %}
                 <a href="{{ path('login') }}">Se connecter</a> | <a href="{{ path('register') }}">S'inscrire</a>
             {% endif %}
+            <h2 class="color__yellow">Commentaires</h2>
+            {% if article.commentaires|length == 0 %}
+                <span class="color__grey">Pas de commentaires pour l'instant.</span><div class="visible-xs"><br/></div>
+            {% endif %}
 
             {% from 'index_controller/macro_comments.html.twig' import recursiveComment %}
 
-           <div class="comments__margin-top">
-               {% for commentaire in article.commentaires %}
-                   {% if commentaire.parent == null %}
-                    {{ recursiveComment(commentaire) }}
-                   {% endif %}
-               {% endfor %}
-           </div>
+            <div class="comments__margin-top">
+                {% for commentaire in article.commentaires %}
+                    {% if commentaire.parent == null %}
+                        {{ recursiveComment(commentaire) }}
+                    {% endif %}
+                {% endfor %}
+            </div>
             <div class="visible-xs"><br/></div>
             <div class="margin-top">
-                <a href="{{ path('homepage') }}">&larr; Retourner à l'accueil</a>
+                <a href="{{ path('homepage') }}">&larr; Retourner Ã  l'accueil</a>
             </div>
             <!-- START Modal -->
             <div class="modal fade" id="modalAnswerComment" tabindex="-1" role="dialog" aria-labelledby="modalAnswerCommentLabel">

@@ -19,7 +19,7 @@ parameters:
     mailer_port:       ~
 
     admin_mail: your@email.com
-    user_photo_dir: '%kernel.root_dir%\..\web\uploads\user'
+    user_photo_dir: '%kernel.root_dir%/../web/uploads/user'
 
     # A secret key that's used to generate certain security-related tokens
     secret:            SuperSecretToken
