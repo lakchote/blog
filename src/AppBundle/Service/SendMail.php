@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: BRANDON HEAT
- * Date: 01/03/2017
- * Time: 16:37
- */
 
 namespace AppBundle\Service;
 
