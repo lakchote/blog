@@ -8,7 +8,7 @@ More details can be found at [here][1].
 It is entirely made with the [Symfony framework][2] and has successfully passed
 [SensioLabsInsight][3] validation. [**Guard authentication**][4] is also implemented.
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/e8d7fac7-a902-4647-b5a1-1b6d9ccd1a63/mini.png)](https://insight.sensiolabs.com/projects/e8d7fac7-a902-4647-b5a1-1b6d9ccd1a63)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/e8d7fac7-a902-4647-b5a1-1b6d9ccd1a63/small.png)](https://insight.sensiolabs.com/projects/e8d7fac7-a902-4647-b5a1-1b6d9ccd1a63)
 
 Libraries used
 --------------
